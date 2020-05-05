@@ -11,5 +11,6 @@
             "Console\\": "src"
         },
         "classmap": ["src"]
-    }
+    },
+    "bin": ["bin/chirripo-proxy"]
 }
