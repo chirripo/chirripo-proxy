@@ -1,0 +1,21 @@
+version: "3.6"
+
+services:
+  proxy:
+    image: "traefik:v2.2"
+    container_name: "chirripo_proxy"
+    command:
+      - --entrypoints.web.address=:80
+      - --providers.docker=true
+      - --api.insecure
+    ports:
+      - "80:80"
+      - "8085:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - chirripo_proxy
+
+networks:
+  chirripo_proxy:
+    external: true

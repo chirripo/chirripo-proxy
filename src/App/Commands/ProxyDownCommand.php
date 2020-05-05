@@ -26,14 +26,13 @@ class ProxyDownCommand extends Command
     {
         $commands = [
             [
-                'docker',
+                'docker-compose',
                 'stop',
-                'chirripo_proxy',
             ],
         ];
 
         foreach ($commands as $command) {
-            $process = new Process($command);
+            $process = new Process($command, __DIR__);
             $process->setTimeout(300);
             $process->run();
         }

@@ -30,43 +30,18 @@ class ProxyUpCommand extends Command
     {
         $commands = [
             [
-                'docker',
+                'docker-compose',
                 'stop',
-                'chirripo_proxy',
             ],
             [
-                'docker',
-                'rm',
-                'chirripo_proxy',
-            ],
-            [
-                'docker',
-                'network',
-                'create',
-                'chirripo_proxy',
-            ],
-            [
-                'docker',
-                'run',
+                'docker-compose',
+                'up',
                 '-d',
-                '-p',
-                '8085:8080',
-                '-p',
-                '80:80',
-                '-v',
-                $_SERVER['PWD'] . '/traefik.toml:/etc/traefik/traefik.toml',
-                '-v',
-                '/var/run/docker.sock:/var/run/docker.sock',
-                '--network',
-                'chirripo_proxy',
-                '--name',
-                'chirripo_proxy',
-                'traefik:v1.7',
             ],
         ];
 
         foreach ($commands as $index => $command) {
-            $process = new Process($command);
+            $process = new Process($command, __);
                 $process->setTimeout(300);
                 $process->run();
 
