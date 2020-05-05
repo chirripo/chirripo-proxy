@@ -30,6 +30,12 @@ class ProxyUpCommand extends Command
     {
         $commands = [
             [
+                'docker',
+                'network',
+                'create',
+                'chirripo_proxy',
+            ],
+            [
                 'docker-compose',
                 'stop',
             ],
@@ -41,12 +47,13 @@ class ProxyUpCommand extends Command
         ];
 
         foreach ($commands as $index => $command) {
-            $process = new Process($command, __);
+            $process = new Process($command, __DIR__);
                 $process->setTimeout(300);
                 $process->run();
 
                 // Executes after the command finishes.
-                if ($index >= 3  && !$process->isSuccessful()) {
+                if ($index > 1  && !$process->isSuccessful()) {
+                    // Allow silent fail on stop command.
                     $output->writeln(sprintf(
                         "\n\nOutput:\n================\n%s\n\nError Output:\n================\n%s",
                         $process->getOutput(),
