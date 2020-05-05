@@ -1,0 +1,15 @@
+{
+    "name": "chirripo/chirripo-proxy",
+    "description": "Proxy container for chirripo",
+    "require": {
+        "symfony/console": "^3.4",
+        "symfony/process": "^3.4"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Console\\": "src"
+        },
+        "classmap": ["src"]
+    }
+}
