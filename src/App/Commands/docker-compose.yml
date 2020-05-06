@@ -5,12 +5,12 @@ services:
     image: "traefik:v2.2"
     container_name: "chirripo_proxy"
     command:
-      - --entrypoints.web.address=:80
+      - --entrypoints.web.address=:${CHIRRIPO_PROXY_PORT}
       - --providers.docker=true
       - --api.insecure
     ports:
-      - "80:80"
-      - "8085:8080"
+      - "${CHIRRIPO_PROXY_PORT}:80"
+      - "${CHIRRIPO_PROXY_DASHBOARD_PORT}:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     networks:

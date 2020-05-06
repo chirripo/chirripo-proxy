@@ -31,10 +31,19 @@ class ProxyDownCommand extends Command
             ],
         ];
 
-        foreach ($commands as $command) {
+        foreach ($commands as $index => $command) {
+            $env = [];
+            if ($index === 0) {
+                if (empty($_SERVER['CHIRRIPO_PROXY_PORT'])) {
+                    $env['CHIRRIPO_PROXY_PORT'] = '80';
+                }
+                if (empty($_SERVER['CHIRRIPO_PROXY_DASHBOARD_PORT'])) {
+                    $env['CHIRRIPO_PROXY_DASHBOARD_PORT'] = '8085';
+                }
+            }
             $process = new Process($command, __DIR__);
             $process->setTimeout(300);
-            $process->run();
+            $process->run(null, $env);
         }
         $output->writeln("Proxy stopped.");
     }

@@ -47,20 +47,28 @@ class ProxyUpCommand extends Command
         ];
 
         foreach ($commands as $index => $command) {
-            $process = new Process($command, __DIR__);
-                $process->setTimeout(300);
-                $process->run();
-
-                // Executes after the command finishes.
-                if ($index > 1  && !$process->isSuccessful()) {
-                    // Allow silent fail on stop command.
-                    $output->writeln(sprintf(
-                        "\n\nOutput:\n================\n%s\n\nError Output:\n================\n%s",
-                        $process->getOutput(),
-                        $process->getErrorOutput()
-                    ));
-                    exit(1);
+            $env = [];
+            if ($index === 2) {
+                if (empty($_SERVER['CHIRRIPO_PROXY_PORT'])) {
+                    $env['CHIRRIPO_PROXY_PORT'] = '80';
                 }
+                if (empty($_SERVER['CHIRRIPO_PROXY_DASHBOARD_PORT'])) {
+                    $env['CHIRRIPO_PROXY_DASHBOARD_PORT'] = '8085';
+                }
+            }
+            $process = new Process($command, __DIR__);
+            $process->setTimeout(300);
+            $process->run(null, $env);
+            // Executes after the command finishes.
+            if ($index > 1  && !$process->isSuccessful()) {
+                // Allow silent fail on stop command.
+                $output->writeln(sprintf(
+                    "\n\nOutput:\n================\n%s\n\nError Output:\n================\n%s",
+                    $process->getOutput(),
+                    $process->getErrorOutput()
+                ));
+                exit(1);
+            }
         }
         $output->writeln("Proxy started.");
     }
