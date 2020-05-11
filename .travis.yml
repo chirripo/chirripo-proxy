@@ -23,6 +23,7 @@ script:
   - chirripo-proxy down
 
 before_deploy:
+  - cd $TRAVIS_BUILD_DIR
   - curl -LSs https://box-project.github.io/box2/installer.php | php
   - ./box.phar build
   - sha1sum chirripo-proxy.phar > chirripo-proxy.version
