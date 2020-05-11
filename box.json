@@ -1,0 +1,22 @@
+{
+    "main": "bin/chirripo-proxy",
+    "output": "chirripo-proxy.phar",
+    "directories": [
+      "bin",
+      "vendor",
+      "src"
+    ],
+    "finder": [
+      {
+        "name": "*.php",
+        "in": [
+          "bin",
+          "vendor",
+          "src"
+        ]
+      }
+    ],
+    "git-commit": "git-commit",
+    "git-version": "git-version",
+    "stub": true
+  }
