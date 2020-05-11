@@ -17,6 +17,7 @@ before_script:
   - export PATH=$TRAVIS_BUILD_DIR/bin:$PATH
 script:
   - cd ~/testchirripo
+  - chirripo-proxy --version
   - chirripo-proxy list
   - chirripo-proxy up
   - chirripo-proxy down
