@@ -52,6 +52,9 @@ class ProxyUpCommand extends Command
                 if (empty($_SERVER['CHIRRIPO_PROXY_PORT'])) {
                     $env['CHIRRIPO_PROXY_PORT'] = '80';
                 }
+                if (empty($_SERVER['CHIRRIPO_PROXY_SECURE_PORT'])) {
+                    $env['CHIRRIPO_PROXY_SECURE_PORT'] = '443';
+                }
                 if (empty($_SERVER['CHIRRIPO_PROXY_DASHBOARD_PORT'])) {
                     $env['CHIRRIPO_PROXY_DASHBOARD_PORT'] = '8085';
                 }
